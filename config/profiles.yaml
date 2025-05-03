@@ -1,0 +1,88 @@
+agent:
+  name: Cortex-R
+  id: cortex_r_001
+  description: >
+    A reasoning-driven AI agent capable of using external tools
+    and memory to solve complex tasks step-by-step.
+
+strategy:
+  type: conservative         # Options: conservative, retry_once, explore_all
+  max_steps: 7               # Maximum tool-use iterations before termination
+  fuzzy_filtering_embedding_url: http://localhost:11434/api/embeddings 
+  fuzzy_filtering_embedding_model: nomic-embed-text
+
+memory:
+  top_k: 5
+  type_filter: tool_output   # Options: tool_output, fact, query, all
+  embedding_model: nomic-embed-text #nomic-ai/nomic-embed-text-v1
+  embedding_url: http://localhost:11434/api/embeddings
+
+llm:
+  text_generation: gemini
+  embedding: nomic
+
+persona:
+  tone: concise
+  verbosity: low
+  behavior_tags: [rational, focused, tool-using]
+
+mcp_servers:
+  - id: math
+    script: mcp_server_1.py
+    cwd: /Users/piyushgrover/Workspace/eagv1/s8eagv1
+    type: stdio
+    tool_embedding_url: http://localhost:11434/api/embeddings 
+    tool_embedding_model_name: nomic-embed-text
+
+  - id: websearch
+    script: mcp_server_3.py
+    cwd: /Users/piyushgrover/Workspace/eagv1/s8eagv1
+    type: stdio
+    tool_embedding_url: http://localhost:11434/api/embeddings 
+    tool_embedding_model_name: nomic-embed-text
+
+  - id: google_sheet
+    url: http://localhost:8001/mcp
+    cwd: /Users/piyushgrover/Workspace/eagv1/s8eagv1/mcp_servers
+    type: sse
+    tool_embedding_url: http://localhost:11434/api/embeddings 
+    tool_embedding_model_name: nomic-embed-text
+
+
+
+
+# config/profiles.yaml → Agent Profiles / Persona Settings
+# Role: Defines agent-specific config: name, strategy, preferences, tool categories.
+
+# Responsibilities:
+
+# Make agent identity configurable without touching code
+
+# Store:
+
+# Name, ID
+
+# Strategy type
+
+# Memory settings
+
+# Tone/personality
+
+# Dependencies:
+
+# context.py and strategy.py load this on startup
+
+# Format: YAML
+
+# Example:
+
+# yaml
+# Copy
+# Edit
+# name: Cortex-R
+# strategy: conservative
+# memory:
+#   top_k: 3
+#   type_filter: tool_output
+# tone: concise, helpful
+# config/profiles.yaml
