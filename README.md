@@ -2,6 +2,8 @@
 
 `s8eagv1` is a modular AI agent framework designed to run multi-tool LLM agents using [MCP](https://github.com/mcptools/mcp) (Model Control Protocol). It supports dynamic tool composition, Google Sheets integration, Telegram-based agent control, and local embeddings.
 
+[Demo](https://youtu.be/esfzxu_XPtw)
+
 ---
 
 ## 🚀 Features
